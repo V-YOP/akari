@@ -11,7 +11,7 @@ default_db_path = str(Path(__file__).parent.parent/'data'/'db.sqlite3').replace(
 class Settings(BaseSettings):
     app_name: str = "Akari Task Scheduler"
     app_version: str = "0.1.0"
-    debug: bool = True
+    debug: bool = False
 
     # Database
     # AKARI_PATH 为存放backend, frontend文件的目录
@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     task_max_concurrent: int = 5
 
     # Logging
-    log_level: str = "DEBUG"
+    log_level: str = "INFO"
 
     # Server
     host: str = "0.0.0.0"
