@@ -217,9 +217,12 @@ import { Refresh, Delete, View } from '@element-plus/icons-vue'
 import { useTaskStore } from '@/stores/taskStore'
 import { useLogStore } from '@/stores/logStore'
 import type { Task, TaskLog } from '@/types/task'
+import { useRoute } from 'vue-router'
 
 const taskStore = useTaskStore()
 const logStore = useLogStore()
+
+const route = useRoute()
 
 const loading = ref(false)
 const showDetails = ref(false)
@@ -229,7 +232,7 @@ const selectedLogs = ref<TaskLog[]>([])
 const selectedLog = ref<TaskLog | null>(null)
 
 const filter = ref({
-  task_id: undefined as number | undefined,
+  task_id: route.params.id,
   status: undefined as number | undefined,
   search: ''
 })

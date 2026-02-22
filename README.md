@@ -2,18 +2,27 @@
 
 起因是想要一个有前端的，本地的计划任务调度应用。以前写了一个非常简单的命令行的，但用起来比较复杂。
 
-注意默认配置在`backend/app/config.py`，修改它或者
+注意默认配置在`backend/app/config.py`，修改它或者使用环境变量或`.env`.
 
 下面全是AI生成的。按照下面的部署的教程把前端拷到`backend/static`后，就可以只起后端去使用这个应用了。
 
----
+还有一些微妙的bug，但不影响业务。
 
+以及，提供了这样一个接口`http://localhost:8000/api/docs#/logs/clear_logs_before_api_logs_cleanup_before_delete` 供清理过去的日志，但没有暴露给前端。可以专门写一个任务去干这事儿，因为现在每次执行都会记一条日志，时间久了 sqlite 就扛不住了 hh。
+
+---
 
 *[English Documentation](README_en.md) | [中文文档](README.md)*
 
 # Akari 任务调度器
 
 一个具有 Web 界面的本地任务调度应用，用于定义、测试和监控计划任务。
+
+![](image.png)
+
+![](image-1.png)
+
+![](image-2.png)
 
 ## 功能特性
 

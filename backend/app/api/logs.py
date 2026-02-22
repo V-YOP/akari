@@ -11,6 +11,7 @@ router = APIRouter(prefix="/logs", tags=["logs"])
 
 
 @router.get("", response_model=PaginatedResponse[TaskLog_Pydantic])
+@router.get("/", response_model=PaginatedResponse[TaskLog_Pydantic])
 async def get_logs(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=1000),
@@ -69,6 +70,7 @@ async def delete_log(log_id: int):
     return None
 
 
+@router.delete("", status_code=status.HTTP_204_NO_CONTENT)
 @router.delete("/", status_code=status.HTTP_204_NO_CONTENT)
 async def clear_logs(
     older_than_days: Optional[int] = Query(None, ge=1, description="Delete logs older than N days"),

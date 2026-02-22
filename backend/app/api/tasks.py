@@ -17,6 +17,7 @@ router = APIRouter(prefix="/tasks", tags=["tasks"])
 
 
 @router.get("", response_model=PaginatedResponse[TaskWithStats])
+@router.get("/", response_model=PaginatedResponse[TaskWithStats])
 async def get_tasks(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=1000),
@@ -76,6 +77,7 @@ async def get_task(task_id: int):
     return await Task_Pydantic.from_tortoise_orm(task)
 
 
+@router.post("", response_model=Task_Pydantic, status_code=status.HTTP_201_CREATED)
 @router.post("/", response_model=Task_Pydantic, status_code=status.HTTP_201_CREATED)
 @atomic()
 async def create_task(task_in: TaskIn_Pydantic):

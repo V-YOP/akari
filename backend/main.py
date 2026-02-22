@@ -5,7 +5,7 @@ import logging
 import ipaddress
 from app.config import settings
 from fastapi import Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from app.core.events import startup_event, shutdown_event
 from app.api import tasks, logs
 
@@ -70,7 +70,12 @@ app.include_router(tasks.router, prefix='/api')
 app.include_router(logs.router, prefix='/api')
 
 # Serve static files
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+# 挂载静态文件
+app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
+# 处理所有其他路由，返回 index.html
+@app.get("/{full_path:path}")
+async def catch_all(full_path: str):
+    return FileResponse("static/index.html")
 
 @app.get("/health")
 async def health_check():
